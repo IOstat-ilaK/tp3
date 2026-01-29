@@ -1,10 +1,13 @@
 from string import punctuation
 from aiogram import F, types, Router
+from filters.chat_types import ChatTypeFilter
 
 
 
 
 user_group_rt=Router()
+user_group_rt.message.filter(ChatTypeFilter(['group','supergroup']))
+
 
 restircted_words = {'редиска', 'нехороший человек'}
 

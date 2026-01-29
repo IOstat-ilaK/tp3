@@ -1,13 +1,15 @@
 from operator import contains
 from aiogram import F, types, Router
 from aiogram.filters import CommandStart, Command
+from filters.chat_types import ChatTypeFilter
 
 
 user_rt=Router()
+user_rt.message.filter(ChatTypeFilter(['private']))
 
 @user_rt.message(CommandStart())
 async def start_cmd(message: types.Message):
-    await message.answer('Привет, дегрод')
+    await message.answer('Привет, Братишь')
 
 async def menu_cmd(message: types.Message):
     await message.answer('Держи меню')
