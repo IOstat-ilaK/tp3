@@ -5,7 +5,9 @@ from aiogram.filters import CommandStart
 from dotenv import find_dotenv, load_dotenv
 
 from handlers.user_private import user_rt
+from handlers.user_group import user_group_rt
 
+from common.bot_cmd_list import private
 
 
 load_dotenv(find_dotenv())
@@ -16,10 +18,12 @@ bot = Bot(token=os.getenv('TOKEN'))
 
 dp = Dispatcher()
 dp.include_router(user_rt)
+dp.include_router(user_group_rt)
 
 
 async def main():
     await bot.delete_webhook(drop_pending_updates=True)
+    await bot.set_my_commands(commands=private,scope=types.BotCommandScopeAllPrivateChats())
     await dp.start_polling(bot, allowed_updates=ALLOWED_UPDATES)
 
 asyncio.run(main())
