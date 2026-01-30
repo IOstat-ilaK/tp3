@@ -3,22 +3,23 @@ from aiogram import F, types, Router
 from aiogram.filters import CommandStart, Command
 from filters.chat_types import ChatTypeFilter
 
+from keyboards import reply 
 
 user_rt=Router()
 user_rt.message.filter(ChatTypeFilter(['private']))
 
 @user_rt.message(CommandStart())
 async def start_cmd(message: types.Message):
-    await message.answer('Привет, Братишь')
-
-async def menu_cmd(message: types.Message):
-    await message.answer('Держи меню')
+    await message.answer('Привет, Братишь', 
+                         reply_markup=reply.start_kb3.as_markup(
+                             resize_keyboard = True, 
+                             input_field_placeholder="Что вас интересует?"))
 
 
 @user_rt.message(F.text.lower() == 'меню')
 @user_rt.message(Command('menu'))
 async def menu_cmd(message: types.Message):
-    await message.answer('Вот твоё меню')
+    await message.answer('Вот твоё меню',reply_markup=reply.del_kb)
 
 
 @user_rt.message((F.text.lower().contains('оплат')) | (F.text.lower() == 'оплата'))
@@ -29,7 +30,7 @@ async def payment_cmd(message: types.Message):
 
 @user_rt.message((F.text.lower().contains('доставк')) | (F.text.lower() == 'варианты доставки'))
 @user_rt.message(Command('shipping'))
-async def menu_cmd(message: types.Message):
+async def delivery_cmd(message: types.Message):
     await message.answer('Есть такое')
 
 
