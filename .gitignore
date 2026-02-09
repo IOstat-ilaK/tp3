@@ -4,12 +4,15 @@ venv/
 env/
 .env/
 
-
-
-
-
 # env
 .env
 .env.local
 *.env
 .env.*
+
+# db
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+*.sql
